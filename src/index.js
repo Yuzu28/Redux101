@@ -2,11 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//1. In order to wire up a redux/react app, we need react-redux
+//we the provider ReactCOmponent, to be around everything.
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import {Provider} from 'react-redux'
+//2. Create the redux store,so that that redux exist  so the provide has a store
+import {createStore} from 'redux';
+
+//3. reudcers to populate the store
+//3a. We always start with a rootReducer
+//4. make individual reducers to hand to to the rootreducers (3)
+
+import rootReducer from './reducers/rootReducer';
+
+//5. create the store (2) by passing it the root rootReducer, which is made up of the
+//reducers
+
+const theStore = createStore(rootReducer);
+
+//provider is the glue between react and redux. Give it the store.
+
+
+ReactDOM.render(
+
+<Provider store={theStore}>
+<App />
+
+</Provider>, 
+document.getElementById('root'));
+
