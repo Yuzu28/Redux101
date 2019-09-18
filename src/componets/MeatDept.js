@@ -6,19 +6,22 @@ import React, {Component} from 'react';
 
 import { connect } from 'react-redux';
 import updateMeat from '../actions/meatInvUpdate'
+import { bindActionCreators } from 'redux';
+
 
 
 class MeatDept extends Component{
 
 
     increment= (operation, index) =>{
+        this.props.updateMeat(operation, index);
         // console.log(operation,index);
-        if (operation ==="+"){
-            updateMeat();
+        // if (operation ==="+"){
+        //     updateFrozen();
 
-        }else if(operation === "-"){
-            
-        }
+        // }else if(operation === "-"){
+
+        // }
 
     }
 
@@ -67,7 +70,22 @@ function mapStateToProps(state){
 }
 
 
+//it comes with connect
+//mapDispatchToProps is how we tie our commponent to the dispatch
+//it takes 1 args dispath
+function mapDispatchToProps(dispatch){
+    // this function returns, bindActionCreators
+    //and we hand bindActionCreators an object:
+    //each property will a be a local prop
+    //each value will be a function that is a dispatch when run
+    return bindActionCreators({
+        updateMeat: updateMeat
+    }, dispatch)
+
+}
+
+
 
 // export default FrozenDept;
-export default connect(mapStateToProps)(MeatDept);
+export default connect(mapStateToProps, mapDispatchToProps)(MeatDept);
 //connect is redux....fetch it from the redux store...then hand it to the component
